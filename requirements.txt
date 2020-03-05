@@ -8,29 +8,29 @@ certifi==2018.10.15       # via requests
 cffi==1.11.5              # via misaka
 chardet==3.0.4            # via requests
 click==7.0                # via flask
-deepmerge==0.0.4
-flask-compress==1.4.0
-flask-logconfig==0.4.2
-flask-script==2.0.6
-flask-wtf==0.14.2
-flask==1.0.2              # via flask-compress, flask-logconfig, flask-script, flask-wtf
-gunicorn==19.9.0
+deepmerge==0.0.4          # via -r requirements.in
+ecdsa==0.15               # via python-jose
+flask-compress==1.4.0     # via -r requirements.in
+flask-logconfig==0.4.2    # via -r requirements.in
+flask-login==0.4.0        # via -r requirements.in
+flask-script==2.0.6       # via -r requirements.in
+flask-wtf==0.14.2         # via -r requirements.in
+flask==1.0.2              # via -r requirements.in, flask-compress, flask-logconfig, flask-login, flask-script, flask-wtf
+future==0.18.2            # via python-jose
 idna==2.7                 # via requests
 itsdangerous==1.1.0       # via flask
 jinja2==2.10              # via flask
 logconfig==0.4.0          # via flask-logconfig
 logutils==0.3.5           # via logconfig
 markupsafe==1.1.0         # via jinja2
-misaka==2.1.1
+misaka==2.1.1             # via -r requirements.in
 pycparser==2.19           # via cffi
+pycrypto==2.6.1           # via python-jose
+python-jose==1.4.0        # via -r requirements.in
 pyyaml==3.13              # via logconfig
-pycrypto==2.6.1
-requests==2.20.1
-setuptools==43.0.0        # Latest versions Python 3.4 is unsupported
-urllib3==1.24.1           # via requests
+requests==2.20.1          # via -r requirements.in
+six==1.14.0               # via ecdsa, python-jose
+urllib3==1.24.2           # via requests
 werkzeug==0.15.3          # via flask
 wtforms==2.2.1            # via flask-wtf
-flask-login==0.4.0
-python-jose==1.4.0
-xmltodict==0.11.0
-git+http://192.168.249.38/dps-beta/common-utilities.git@1.5.0
+xmltodict==0.11.0         # via -r requirements.in
