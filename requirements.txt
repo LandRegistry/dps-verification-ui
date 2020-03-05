@@ -24,7 +24,7 @@ markupsafe==1.1.0         # via jinja2
 misaka==2.1.1
 pycparser==2.19           # via cffi
 pyyaml==4.2              # via logconfig
-pycrypto==2.6.0
+pycrypto==2.5
 requests==2.20.1
 setuptools==43.0.0        # Latest versions Python 3.4 is unsupported
 urllib3==1.24.2           # via requests
