@@ -1,0 +1,16 @@
+// Overwrite the GOV.UK font stack as internal application
+$govuk-font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
+
+// GOV.UK design system
+$govuk-images-path: '/ui/.govuk-frontend/images/';
+$govuk-fonts-path: '/ui/.govuk-frontend/fonts/';
+@import 'govuk-frontend/all';  // Feel free to be more selective than this
+
+// App specific code
+@import 'partials/cookie-banner';
+@import 'partials/utility';
+@import 'partials/notepad';
+@import 'partials/buttons';
+@import 'partials/navigation';
+@import 'partials/status';
+@import 'partials/locking';

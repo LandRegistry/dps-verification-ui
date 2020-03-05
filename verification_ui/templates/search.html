@@ -1,0 +1,88 @@
+{% extends "app/layout.html" %}
+
+{% from 'app/vendor/.govuk-frontend/components/table/macro.html' import govukTable %}
+
+{% block title %}Search{% endblock %}
+
+{% block inner_content %}
+
+<div class="govuk-width-container">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-xl">Search</h1>
+            <div class="govuk-tabs" data-module="tabs">
+                <ul class="govuk-tabs__list">
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="{{ url_for('.get_worklist') }}">
+                            Applications
+                        </a>
+                    </li>
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab govuk-tabs__tab--selected" href="#search">
+                            Search
+                        </a>
+                    </li>
+                </ul>
+                <section class="govuk-tabs__panel lr-tabs__panel--no-border" id="search">
+                    <h2 class="govuk-heading-m">Search applications and users accounts</h2>
+                    <form action="{{ url_for('.get_search') }}" method="GET">
+                        {% if request.method != 'GET' %}
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        {% endif %}
+                        <details class="govuk-details search" role="group">
+                            <summary class="govuk-details__summary" role="button" aria-controls="dst-search"
+                                aria-expanded="false">
+                                <span class="govuk-details__summary-text">
+                                    Search
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text" id="dst-search" aria-hidden="true">
+                                <div id="search-block">
+                                    {{ search_form.first_name }}
+                                    {{ search_form.last_name }}
+                                    {{ search_form.organisation_name }}
+                                    {{ search_form.email }}
+
+                                    {{ search_form.search_button(params={
+                                    'classes': 'lr-button--green'
+                                    }) }}
+                                </div>
+                            </div>
+                        </details>
+                    </form>
+
+                    {% if new_search and has_hit_limit %}
+                        <div class="govuk-warning-text">
+                            <span class="govuk-warning-text__icon" aria-hidden="True">!</span>
+                            <strong class="govuk-warning-text__text">
+                                <span class="govuk-warning-text__assistive">Warning</span>
+                                This is not a full list of results. Change your search terms.
+                            </strong>
+                        </div>
+                    {% endif %}
+
+                    {% if search_items | length > 0 %}
+                        {{ govukTable({
+                                'firstCellIsHeader': false,
+                                'head': [
+                                    { 'text': 'Date' },
+                                    { 'text': 'Type' },
+                                    { 'text': 'Name' },
+                                    { 'text': 'Status' },
+                                    { 'text': 'Details' },
+                                    { 'text': '' }
+                                ],
+                                'rows': search_items
+                            }) }}
+                    {% endif %}
+
+                    {% if new_search and search_items | length == 0 %}
+                        <h2 class="govuk-heading-s">No results found</h2>
+                    {% endif %}
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

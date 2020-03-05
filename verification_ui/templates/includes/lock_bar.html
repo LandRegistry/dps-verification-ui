@@ -1,0 +1,30 @@
+{% from 'app/vendor/.govuk-frontend/components/button/macro.html' import govukButton %}
+
+{% if case_data['status'] in ['Pending', 'In Progress'] %}
+    {% if lock is none %}
+        {% set action_url = url_for('verification.unlock_case') %}
+        {% set span_text = "Locked to you" %}
+        {% set button_text = 'Unlock' %}
+    {% else %}
+        {% set action_url = url_for('verification.lock_case') %}
+        {% set span_text = "Locked to " + lock %}
+        {% set button_text = 'Transfer lock' %}
+    {% endif %}
+
+    <div class="lock-banner">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 0 24 24" fill="none"
+              stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="11" width="15.5" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <span>{{ span_text }}</span>
+        <form action="{{ action_url }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="hidden" name="item_id" value="{{ case_data['id'] }}">
+            {{ govukButton({
+                'text': button_text,
+                'classes': 'lr-button-secondary'
+            }) }}
+        </form>
+    </div>
+{% endif %}

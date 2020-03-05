@@ -1,0 +1,7 @@
+flake:
+  image: python:alpine
+  tags:
+  - "docker/python:alpine"
+  script:
+  - pip install flake8
+  - flake8

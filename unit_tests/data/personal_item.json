@@ -1,0 +1,40 @@
+{
+    "date_agreed": null,
+    "case_id": 1,
+    "status": "Pending",
+    "user_id": "ff523530-e326-4b6b-b3f3-00ab654224ed",
+    "ldap_id": "d5eaf617-07c8-4aec-a030-4177196d4d8f",
+    "staff_id": null,
+    "date_added": "2019-01-01 12:12:12.000000",
+    "registration_data": {
+        "first_name": "Test",
+        "telephone_number": "07850111222",
+        "country": "UK",
+        "user_type": "personal-uk",
+        "address_line_1": "1 Test Street",
+        "contactable": true,
+        "contact_preferences": ["Telephone"],
+        "last_name": "User",
+        "address_line_2": "",
+        "email": "fli@wibblebibble.com",
+        "title": "Mr",
+        "city": "Testyton",
+        "postcode": "T35 T3R5"
+    },
+    "notes": [
+        {
+            "notes_id": 1,
+            "case_id": 1,
+            "note_text": "This is a test note",
+            "staff_id": "testuser",
+            "date_added": "2019-01-01 12:12:12.000000"
+        },
+        {
+            "notes_id": 2,
+            "case_id": 1,
+            "note_text": "This is another test note",
+            "staff_id": "testuser",
+            "date_added": "2019-02-01 12:12:12.000000"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+	"user_id": "3448ca99-5df8-438f-af3a-0e6821a706fd",
+	"ldap_id": "9ba3d4d2-2e29-484e-8666-31898742fc41",
+	"registration_data": {
+        "title": "Mr",
+        "first_name": "Integration",
+        "last_name": "Test",
+        "contactable": true,
+        "telephone_number": "07840112233",
+        "address_line_1": "1",
+        "address_line_2": "Integration Road",
+        "city": "Intsville",
+        "county": null,
+        "postcode": "IN7 TE57",
+        "country": "UK",
+        "country_of_incorporation": null,
+        "organisation_name": null,
+        "registration_number": null,
+        "date_added": "2019-01-01 12:12:12.000000",
+        "user_type": "personal-uk"
+    },
+	"status": "Pending"
+}

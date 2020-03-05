@@ -1,0 +1,46 @@
+.lr-button--blue {
+    @include govuk-text-colour;
+
+    background-color: govuk-colour("light-blue");
+    color: govuk-colour("white");
+
+    &:hover {
+        background-color: govuk-colour("blue");
+    }
+
+    &:focus {
+        background-color: govuk-colour("blue");
+    }
+}
+
+.lr-button--red {
+    @include govuk-text-colour;
+
+    background-color: govuk-colour("bright-red");
+    color: govuk-colour("white");
+
+    &:hover {
+        background-color: govuk-colour("red");
+    }
+
+    &:focus {
+        background-color: govuk-colour("red");
+    }
+}
+
+.lr-button-secondary {
+    @include govuk-text-colour;
+
+    background-color: govuk-colour("grey-3");
+    box-shadow: 0 2px 0 #858688;
+
+    &:hover {
+        background-color: #c8cacb;
+        color: #0b0c0c;
+    }
+
+    &:focus {
+        background-color: #c8cacb;
+        color: #0b0c0c;
+    }
+}

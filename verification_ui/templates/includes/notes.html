@@ -1,0 +1,23 @@
+<h2 id="notes" class="govuk-heading-l">Notes</h2>
+
+<div class="lr-notepad govuk-!-margin-bottom-6">
+    <ul class="govuk-list">
+        {% for note in case_data['notes'] %}
+            <li class="lr-notepad__note">
+                <span class="govuk-body">{{ note['text'] }}</span><br>
+                <span class="govuk-body-s lr-notepad__note__metadata">{{ note['meta_data'] }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% if forms['note'] is defined %}
+    <form action="{{ url_for('verification.add_note', _anchor='notes') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="hidden" name="item_id" value="{{ case_data['id'] }}">
+    
+        {{ forms['note'].note_text }}
+        {{ forms['note'].note_button(params={
+            'classes': 'lr-button--blue'
+        }) }}
+    </form>
+{% endif %}

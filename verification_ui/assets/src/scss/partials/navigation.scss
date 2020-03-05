@@ -1,0 +1,35 @@
+.app-navigation {
+    background-color: #f8f8f8;
+    margin-top: -45px;
+    margin-bottom: 10px;
+}
+.app-navigation__item {
+    list-style: none;
+    text-align: right;
+    display: inline-flex;
+    padding: 1em;
+    float: right;
+}
+
+.js-enabled .lr-tabs__panel--no-border {
+    border: none;
+}
+
+/* This is in here as a bit of a temporary hack to get the dataset activity section 
+of account information to be displayed without having to make multiple unecessary 
+call to the apis and should be replaced eventually */
+.lr-account-section {
+    display: none;
+}
+
+.lr-account-section--default {
+    display: block;
+}
+
+:target {
+    display: block;
+}
+
+:target ~ .lr-account-section--default {
+    display: none;
+}

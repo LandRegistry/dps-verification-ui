@@ -1,0 +1,43 @@
+{
+    "date_agreed": null,
+    "case_id": 2,
+    "status": "Pending",
+    "user_id": "3448ca99-5df8-438f-af3a-0e6821a706fd",
+    "ldap_id": "9ba3d4d2-2e29-484e-8666-31898742fc21",
+    "staff_id": null,
+    "date_added": "2019-01-01 12:12:12.000000",
+    "registration_data": {
+        "first_name": "Testy",
+        "telephone_number": "077345555675",
+        "city": "Saint Pierre de Test",
+        "user_type": "organisation-overseas",
+        "county": null,
+        "country_of_incorporation": "France",
+        "address_line_1": "2 Rue de Test",
+        "contactable": false,
+        "contact_preferences": ["Telephone", "Post"],
+        "last_name": "Userre",
+        "address_line_2": "Testyville",
+        "email": "test@organisation.com",
+        "title": "Madame",
+        "date_added": "2019-01-01 12:12:12.000000",
+        "postcode": "75001",
+        "organisation_name": "Le Test Organisation"
+    },
+    "notes": [
+        {
+            "notes_id": 1,
+            "case_id": 1,
+            "note_text": "This is a test note",
+            "staff_id": "testuser",
+            "date_added": "2019-01-01 12:12:12.000000"
+        },
+        {
+            "notes_id": 2,
+            "case_id": 1,
+            "note_text": "This is another test note",
+            "staff_id": "testuser",
+            "date_added": "2019-02-01 12:12:12.000000"
+        }
+    ]
+}

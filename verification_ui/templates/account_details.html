@@ -1,0 +1,210 @@
+{% extends "app/layout.html" %}
+
+{% from 'app/vendor/.govuk-frontend/components/back-link/macro.html' import govukBackLink %}
+{% from 'app/vendor/.govuk-frontend/components/summary-list/macro.html' import govukSummaryList %}
+{% from 'app/vendor/.govuk-frontend/components/accordion/macro.html' import govukAccordion %}
+
+{% block title %}Account{% endblock %}
+
+{% block inner_content %}
+<div class="govuk-width-container">
+    {% if activity %}
+    <div id="activity" class="lr-account-section">
+        {{ govukBackLink({
+            'text': 'Back to account details',
+            'href': '#details'
+        }) }}
+
+        <div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+            <div class="govuk-grid-column-full">
+                <span class="govuk-caption-xl">{{ account_name }}</span>
+
+                <h1 class="govuk-heading-xl">Account information</h1>
+
+                <h2 class="govuk-heading-l">Dataset activity</h2>
+            </div>
+        </div>
+
+        {% if activity['download_count'] > 0 %}
+        <p class="govuk-body">Showing {{ activity['download_count'] }} file downloads since
+            {{ activity['oldest_download_date'] }}.</p>
+        {% endif %}
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                {{ govukAccordion({
+                    'id': "accordion-with-summary-sections",
+                    'items': activity['datasets']
+                }) }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="details" class="lr-account-section lr-account-section--default">
+        {% if search %}
+        {{ govukBackLink({
+                'text': 'Back to search results',
+                'href': url_for('verification.get_search')
+            }) }}
+        {% else %}
+        {{ govukBackLink({
+                'text': 'Back to worklist',
+                'href': url_for('verification.get_worklist')
+            }) }}
+        {% endif %}
+
+        <div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-margin-bottom-6">
+            <div class="govuk-grid-column-full">
+                <span class="govuk-caption-xl">{{ account_name }}</span>
+
+                <h1 class="govuk-heading-xl">Account information</h1>
+
+                <h2 class="govuk-heading-l">Details</h2>
+
+                {{ govukSummaryList({
+                    'rows': case_data['info']
+                }) }}
+            </div>
+        </div>
+
+        <div class="govuk-grid-row govuk-!-margin-bottom-6">
+            <div class="govuk-grid-column-full">
+                {% include 'app/includes/notes.html' %}
+            </div>
+        </div>
+
+        {% if activity %}
+        <div class="govuk-grid-row govuk-!-margin-bottom-6">
+            <div class="govuk-grid-column-full">
+                <h2 class="govuk-heading-l">Dataset activity</h2>
+
+                <p class="govuk-caption-m">Information about which datasets this account has access to and a history of
+                    downloads for each dataset.</p>
+
+                {% if activity['datasets'] %}
+                <p><a href="#activity" class="govuk-body govuk-link">View dataset activity</a></p>
+                {% else %}
+                <p class="govuk-body">There is currently no activity for this account.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if case_data['status'] == 'Approved' %}
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <h2 class="govuk-heading-l">Actions</h2>
+
+                <div class="govuk-tabs" data-module="tabs">
+                    <ul class="govuk-tabs__list">
+                        {% if forms['access'] is defined %}
+                        <li class="govuk-tabs__list-item">
+                            <a class="govuk-tabs__tab govuk-tabs__tab--selected" href="#access">
+                                Data access
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% if forms['close'] is defined %}
+                        <li class="govuk-tabs__list-item">
+                            <a class="govuk-tabs__tab" href="#close">
+                                Close account
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    {% if forms['access'] is defined %}
+                    <section class="govuk-tabs__panel" id="access">
+                        <h3 class="govuk-heading-m">
+                            Manage access to the datasets
+                            <span class="govuk-caption-m">Select all that apply</span>
+                        </h3>
+
+                        <form action="{{ url_for('verification.update_dataset_access') }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <input type="hidden" name="item_id" value="{{ case_data['id'] }}">
+
+
+                            <div class="govuk-grid-row">
+                                {% for dataset in dataset_access | sort(attribute='title') | selectattr('type', 'ne', 'confidential') | slice(2) %}
+                                <div class="govuk-grid-column-one-half">
+                                    {% for item in dataset %}
+                                    {{ forms['access'][item['name']](params={
+                                            'fieldset': {
+                                                'legend': {
+                                                    'text': item['title'],
+                                                    'classes': 'govuk-!-font-weight-bold'
+                                                }
+                                            },
+                                            'classes': 'govuk-checkboxes--small'
+                                       }) }}
+                                    {% endfor %}
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <hr class="govuk-section-break govuk-section-break--m">
+
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-one-half">
+                                    <details class="govuk-details" data-module="govuk-details" open="">
+                                        <summary class="govuk-details__summary">
+                                            <span class="govuk-details__summary-text">
+                                                Restricted datasets
+                                            </span>
+                                        </summary>
+                                        {% for dataset in dataset_access | selectattr('type', 'eq', 'confidential') %}
+                                            {{ forms['access'][dataset['name']](params={
+                                                'classes': 'govuk-details__text govuk-checkboxes--small'
+                                            }) }}
+                                        {% endfor %}
+                                    </details>
+                                </div>
+                            </div>
+
+                            {{ forms['access'].access_button }}
+                        </form>
+                    </section>
+                    {% endif %}
+
+                    {% if forms['close'] is defined %}
+                    <section class="govuk-tabs__panel lr-tabs__panel--no-border govuk-tabs__panel--hidden" id="close">
+                        <h3 class="govuk-heading-l">Close account</h3>
+
+                        <p class="govuk-caption-m">Closing will remove that users account. An email will need to be sent
+                            to the user to inform them that their account is now closed.</p>
+
+                        <form action="{{ url_for('verification.close_account') }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <input type="hidden" name="item_id" value="{{ case_data['id'] }}">
+
+                            {{ forms['close'].close_requester(params={
+                                'classes': 'govuk-radios--inline',
+                                'fieldset': {
+                                    'legend': {
+                                        'text': 'Who requested to close this account?',
+                                        'isPageHeading': false,
+                                        'classes': 'govuk-fieldset__legend--m'
+                                    }
+                                }
+                            }, global_attributes={'required': 'required'}) }}
+
+                            {{ forms['close'].close_reason(params={
+                                'rows': '8'
+                            }) }}
+
+                            {{ forms['close'].close_button(params={
+                                'classes': 'lr-button--red'
+                            }) }}
+                        </form>
+                    </section>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

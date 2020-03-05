@@ -1,0 +1,44 @@
+{
+    "date_agreed": null,
+    "case_id": 2,
+    "status": "Pending",
+    "user_id": "3448ca99-5df8-438f-af3a-0e6821a706fd",
+    "ldap_id": "9ba3d4d2-2e29-484e-8666-31898742fc21",
+    "staff_id": "LRTM101",
+    "date_added": "2019-01-01 12:12:12.000000",
+    "registration_data": {
+        "first_name": "Testy",
+        "telephone_number": "077345555675",
+        "registration_number": "09871234",
+        "city": "Testerton",
+        "user_type": "organisation-uk",
+        "county": null,
+        "address_line_1": "2 Test Street",
+        "contactable": true,
+        "contact_preferences": ["Telephone", "Post", "Email"],
+        "last_name": "User",
+        "address_line_2": "Testyville",
+        "email": "test@organisation.com",
+        "title": "Mrs",
+        "date_added": "2019-01-01 12:12:12.000000",
+        "postcode": "T35 T3R5",
+        "organisation_name": "Test Organisation",
+        "organisation_type": "Company"
+    },
+    "notes": [
+        {
+            "notes_id": 1,
+            "case_id": 1,
+            "note_text": "This is a test note",
+            "staff_id": "testuser",
+            "date_added": "2019-01-01 12:12:12.000000"
+        },
+        {
+            "notes_id": 2,
+            "case_id": 1,
+            "note_text": "This is another test note",
+            "staff_id": "testuser",
+            "date_added": "2019-02-01 12:12:12.000000"
+        }
+    ]
+}

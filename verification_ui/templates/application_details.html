@@ -1,0 +1,128 @@
+{% extends "app/layout.html" %}
+
+{% from 'app/vendor/.govuk-frontend/components/back-link/macro.html' import govukBackLink %}
+{% from 'app/vendor/.govuk-frontend/components/summary-list/macro.html' import govukSummaryList %}
+{% from 'app/vendor/.govuk-frontend/components/button/macro.html' import govukButton %}
+{% from 'app/vendor/.govuk-frontend/components/radios/macro.html' import govukRadios %}
+
+{% block title %}Application{% endblock %}
+
+{% block inner_content %}
+<div class="govuk-width-container">
+    {% if search %}
+        {{ govukBackLink({
+            'text': 'Back to search results',
+            'href': url_for('verification.get_search')
+        }) }}
+    {% else %}
+        {{ govukBackLink({
+            'text': 'Back to worklist',
+            'href': url_for('verification.get_worklist')
+        }) }}
+    {% endif %}
+
+    {% include 'app/includes/lock_bar.html' %}
+
+    <div class="govuk-grid-row govuk-!-margin-top-3 govuk-!-margin-bottom-6">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-xl">Application information</h1>
+
+            <h2 class="govuk-heading-l">Details</h2>
+
+            {{ govukSummaryList({
+                'rows': case_data['info']
+            }) }}
+        </div>
+    </div>
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-6">
+        <div class="govuk-grid-column-full">
+            {% include 'app/includes/notes.html' %}
+        </div>
+    </div>
+
+    {% if forms['decline'] is defined and lock is none %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h2 class="govuk-heading-l">Actions</h2>
+
+            {% set approveHtml %}
+            <form action="{{ url_for('verification.approve_worklist_item') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="item_id" value="{{ case_data['id'] }}">
+
+                {{ govukButton({
+                    'text': 'Approve'
+                }) }}
+            </form>
+            {% endset -%}
+
+            {% set declineHtml %}
+            <p class="govuk-body">When declining an application enter an appropriate reason.</p>
+
+            <form action="{{ url_for('verification.decline_worklist_item') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="item_id" value="{{ case_data['id'] }}">
+                <meta id="decline_templates" data-decline-templates="{{ forms['decline_templates'] }}">
+
+                <div class="js-only">
+                    {{ forms['decline'].decline_template(params={
+                        'classes': 'govuk-!-margin-bottom-6'
+                    }) }}
+
+                    {{ forms['decline'].template_button(params={
+                        'href': '#',
+                        'classes': 'lr-button--blue',
+                        'attributes': {
+                            'id': 'template_button'
+                        }
+                    })}}
+                </div>
+
+                {{ forms['decline'].decline_reason(params={
+                    'rows': '3'
+                }) }}
+
+                {{ forms['decline'].decline_advice(params={
+                'rows': '8'
+                }) }}
+
+                {{ forms['decline'].decline_button(params={
+                    'classes': 'lr-button--red'
+                }) }}
+            </form>
+            {% endset -%}
+
+            {{ govukRadios({
+                'idPrefix': 'actions',
+                'name': 'actions',
+                'classes': 'govuk-radios--conditional',
+                'attributes': {'data-module': 'radios'},
+                'items': [
+                    {
+                        'value': 'approve',
+                        'text': 'Approve',
+                        'hint': {
+                            'text': 'Approving an application will create an account and send the user an activation email.'
+                        },
+                        'conditional': {
+                            'html': approveHtml
+                        }
+                    },
+                    {
+                        'value': 'decline',
+                        'text': 'Decline',
+                        'hint': {
+                            'text': 'Declining an application will remove that users account and send them an email with the reason they were declined.'
+                        },
+                        'conditional': {
+                            'html': declineHtml
+                        }
+                    }
+                ]
+            }) }}
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

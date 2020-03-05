@@ -1,0 +1,21 @@
+.lr-notepad {
+    @include govuk-text-colour;
+    
+    height: 12em;
+    border: 2px solid govuk-colour("grey-2");
+    padding: 1em;
+    background-color: govuk-colour("grey-4");
+    overflow: auto;
+}
+
+.lr-notepad__note:not(:last-of-type) {
+    @include govuk-text-colour;
+
+    margin-bottom: 10px !important;
+    border-bottom: 1px dashed govuk-colour("grey-2");
+    padding-bottom: 5px;
+}
+
+.lr-notepad__note__metadata {
+    font-style: italic;
+}

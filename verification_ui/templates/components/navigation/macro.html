@@ -1,0 +1,15 @@
+{% macro hmlrNavigation(params) %}
+    <nav class="app-navigation govuk-clearfix full-screen">
+        <ul>
+        {% for item in params['items'] %}
+            <li class="app-navigation__item">
+                {% if item['link'] %}
+                    <a class="govuk-link" href={{ item['link']['href'] }}>{{ item['text'] }}</a>
+                {% else %}
+                    <span class="govuk-body-s govuk-body govuk-!-margin-bottom-0">{{ item['text'] }}</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    </nav>
+{% endmacro %}

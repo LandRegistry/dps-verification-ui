@@ -1,0 +1,66 @@
+.lock-banner {
+  background: $govuk-brand-colour;
+  padding: 0.5em;
+  box-sizing: border-box;
+  overflow: hidden;
+  vertical-align: middle;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.lock-banner * {
+  margin-bottom: 0;
+  margin-top: 0;
+  font-family: HelveticaNeue,Helvetica Neue,Arial,Helvetica,sans-serif;
+  vertical-align: middle;
+}
+
+.lock-banner svg {
+  margin: 7px;
+}
+
+.lock-banner span {
+  color: #fff;
+}
+
+.lock-banner button {
+  float: right;
+  margin: 7px;
+}
+
+.lock-banner form {
+  display: inline;
+}
+
+.pill-box {
+  border-radius: 6px;
+  padding: 2px;
+  font-size: 10px;
+  text-decoration: none;
+  color: #fff;
+  width: 125px;
+}
+
+.pill-box-green {
+  background: #25ac09;
+}
+
+.pill-box-red {
+  background: #df3034;
+}
+
+.pill-box svg {
+  margin-top: 3px;
+  margin-left: 5px;
+  width: 15px;
+}
+
+.pill-box span {
+    position: relative;
+    top: -5px;
+    font-size: 13px;
+    font-weight: bold;
+    left: 3px;
+}
+
+
