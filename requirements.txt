@@ -28,7 +28,7 @@ pycrypto==2.6.1
 requests==2.20.1
 setuptools==43.0.0        # Latest versions Python 3.4 is unsupported
 urllib3==1.24.1           # via requests
-werkzeug==0.14.1          # via flask
+werkzeug==0.15.3          # via flask
 wtforms==2.2.1            # via flask-wtf
 flask-login==0.4.0
 python-jose==1.4.0
